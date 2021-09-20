@@ -21,10 +21,15 @@ for root,dirs,fs in os.walk(basePath):
                         try:
                             fileget.extractall(outPath,pwd=pwds.encode())#不要直接用pwds，要编码一下
                             print(filename+":"+pwds)
+                            os.remove(filename)
                         except:
                             pass
                 else:
-                    fileget.extractall(outPath)
+                    try:
+                        fileget.extractall(outPath)
+                        os.remove(filename)
+                    except:
+                        pass
         elif type=='zip':
             with zipfile.ZipFile(filename, 'r') as zf:
                 for info in zf.infolist():
